@@ -1,0 +1,58 @@
+stages:
+  - build
+  - test
+  - deploy
+
+default:               # Add a default section to define the `image` keyword's default value
+  image: node
+
+.standard-rules:       # Make a hidden job to hold the common rules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+build-job:
+  extends:
+    - .standard-rules  # Reuse the configuration in `.standard-rules` here
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - "build/"
+
+lint-markdown:
+  stage: test
+  extends:
+    - .standard-rules  # Reuse the configuration in `.standard-rules` here
+  dependencies: []
+  script:
+    - npm install markdownlint-cli2 --global
+    - markdownlint-cli2 -v
+    - markdownlint-cli2 "blog/**/*.md" "docs/**/*.md"
+  allow_failure: true
+
+test-html:
+  stage: test
+  extends:
+    - .standard-rules  # Reuse the configuration in `.standard-rules` here
+  dependencies:
+    - build-job
+  script:
+    - npm install --save-dev htmlhint
+    - npx htmlhint --version
+    - npx htmlhint build/
+
+pages:
+  stage: deploy
+  image: busybox       # Override the default `image` value with `busybox`
+  dependencies:
+    - build-job
+  script:
+    - mv build/ public/
+  artifacts:
+    paths:
+      - "public/"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
