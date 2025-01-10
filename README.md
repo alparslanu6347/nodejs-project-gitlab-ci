@@ -1,9 +1,9 @@
-# nodejs_project
+# nodejs-project-gitlab-ci
 
-  ***Uygulamaya ait dosya ve klasörler çok yer kapladığı için repoya alınmadı, zaten README.md içerisindeki adımları takip ederseniz project dosya klasörlerini siz de elde edebilirsiniz.*** 
-  ***Bu repoya uygulama dosyalarından sadece `docusaurus.config.ts` dosyası alındı, çünkü içerisinde 2 adet değişiklik yapılması gerekiyor, örnek olması açısından repoya alındı***
+  ***The application's files and folders were not added to the repository because they take up too much space. However, by following the steps in the README.md file, you can generate the necessary project files and folders yourself.*** 
+  ***Only the `docusaurus.config.ts` file from the application files was added to this repository because it requires two modifications. It was included in the repository as an example.***
 
-# Part-1 : 
+## Part-1 : 
 
 - Go to gitlab
 
@@ -15,7 +15,7 @@
   `Project Configurations` : Put check mark on the `Initialize repository with a README`
   Click `Create project`
 
-# Part-2 : Launch an ec2-instance on AWS and install `nodejs`
+## Part-2 : Launch an ec2-instance on AWS and install `nodejs`
 
 - Go to AWS Management Console, we need a `nodejs-server` and we need to install agent into that server. (İSTERSENİZ LOKALDE DE nodejs KURULUMU YAPABİLİRSİNİZ, Ben burada AWS Amazon Linux 2023 tercih ettim.)
 
@@ -73,7 +73,7 @@ mv website/* .
 rm -r website
 ```
 
-# Part-3 : Update the Docusaurus configuration file with the details of your GitLab project. In `docusaurus.config.ts`:
+## Part-3 : Update the Docusaurus configuration file with the details of your GitLab project. In `docusaurus.config.ts`:
 
    - Set url: to a path with this format: https://<my-username>.gitlab.io/  
    - `11. satır` `url: 'https://your-docusaurus-site.example.com'`     --> `url: 'https://arrowlevent.gitlab.io/'`
@@ -91,7 +91,7 @@ git commit -m "Add simple generated Docusaurus site"
 git push origin     # şifre soracak -> TOKEN cpoy-paste enter
 ```
 
-# Part-4 : Prepare `.gitlab-ci.yml` in the `root` of the project with this configuration
+## Part-4 : Prepare `.gitlab-ci.yml` in the `root` of the project with this configuration
 
 - Go to gitlab
   - Click and get into your project/repository `nodejs-project` --> Click `+` Select ``New file` from the list
@@ -131,7 +131,7 @@ build-job:
     Browse the contents of the artifacts file by selecting Browse to the right of the job log after the job completes.
 
 
-# Part-5 : Add a job to deploy the site
+## Part-5 : Add a job to deploy the site
 
 - `GitLab Pages`: To host your static site, you will use GitLab Pages. [https://docs.gitlab.com/ee/user/project/pages/index.html]
 
@@ -173,7 +173,7 @@ pages:
 - Static web sitesini görmek için : `https://arrowlevent.gitlab.io/nodejs-project/`
 
 
-# Part-6 : Add test jobs
+## Part-6 : Add test jobs
 
 - Now that the site builds and deploys as expected, you can add tests and `linting`. For example, a Ruby project might run RSpec test jobs. Docusaurus is a static site that uses Markdown and generated HTML, so this tutorial adds jobs to test the Markdown and HTML.
   - `linting` = Source kodunuzdaki hataları, uyumsuzlukları veya belirli kurallara uymayan unsurları tespit etmek için kullanılan bir süreci ifade eder. Linting, genellikle yazım hataları, kod stili ihlalleri ve potansiyel hata kaynakları gibi konuları tespit ederek kod kalitesini artırmaya yardımcı olur. Bu süreç, yazılım geliştirme sürecinde standartlar ve belirli kuralların takip edilmesini sağlamak amacıyla kullanılır. Linting araçları, belirli bir dil veya teknoloji için kodunuzu analiz eder ve belirli stil kılavuzlarına uymayan kodu belirler. 
@@ -256,7 +256,7 @@ pages:
 
 - Static web sitesini görmek için : `https://arrowlevent.gitlab.io/nodejs-project/`
 
-# Part-7 : Start using merge request pipelines
+## Part-7 : Start using merge request pipelines
 
 
 - This Part-7 introduces:
@@ -358,7 +358,7 @@ pages:
 - Static web sitesini görmek için : `https://arrowlevent.gitlab.io/nodejs-project/`
 
 
-# Part-8 : Start using merge request pipelines
+## Part-8 : Start using merge request pipelines
 
 - Reduce duplicated configuration :
 
@@ -450,7 +450,7 @@ pages:
 - Static web sitesini görmek için : `https://arrowlevent.gitlab.io/nodejs-project/`
 
 
-# Resources :
+## Resources :
 
 - https://gitlab.com/arrowlevent/nodejs-project   (`My Public GitLab repository`)
 - https://docs.gitlab.com/ee/ci/quick_start/tutorial.html
